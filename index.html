@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aravind Krishna M — M.Tech Thesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #042C53;
+  --blue: #185FA5;
+  --blue-light: #E6F1FB;
+  --teal: #0F6E56;
+  --teal-light: #E1F5EE;
+  --teal-mid: #1D9E75;
+  --gray: #5F5E5A;
+  --gray-light: #F1EFE8;
+  --text: #1a1a18;
+  --text-muted: #5F5E5A;
+  --border: rgba(0,0,0,0.1);
+  --white: #ffffff;
+  --sidebar-w: 240px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
+  background: #f8f7f4;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--navy);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-brand {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #5DCAA5;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sidebar-brand-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.sidebar-brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+nav { padding: 1rem 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 0.75rem 1.5rem 0.25rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 1.5rem;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.05);
+  border-left-color: rgba(255,255,255,0.2);
+}
+
+.nav-link.active {
+  color: #5DCAA5;
+  border-left-color: #5DCAA5;
+  background: rgba(93,202,165,0.08);
+}
+
+.nav-icon {
+  font-size: 14px;
+  width: 16px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.5;
+}
+
+/* ── MAIN CONTENT ── */
+main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── HERO ── */
+#hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #185FA5 55%, #0F6E56 100%);
+  padding: 4rem 3rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#hero::before {
+  content: 'IL-7';
+  position: absolute;
+  right: -20px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Crimson Pro', serif;
+  font-size: 200px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.04);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5DCAA5;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.35;
+  max-width: 680px;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-item {
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--blue);
+  line-height: 1;
+}
+
+.stat-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 3rem;
+  border-bottom: 1px solid var(--border);
+  background: #f8f7f4;
+}
+
+section:nth-child(even) { background: var(--white); }
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-mid);
+  margin-bottom: 0.5rem;
+}
+
+.section-heading {
+  font-family: 'Crimson Pro', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.body-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-width: 680px;
+}
+
+/* ── OVERVIEW ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 1.5rem;
+}
+
+.overview-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+section:nth-child(even) .overview-card { background: #f8f7f4; }
+
+.ov-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.ov-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── OBJECTIVES ── */
+.obj-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 12px; }
+
+.obj-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.obj-item:hover {
+  border-color: rgba(24,95,165,0.3);
+  box-shadow: 0 2px 12px rgba(24,95,165,0.08);
+}
+
+.obj-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--white);
+  background: var(--blue);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.obj-num.done { background: var(--teal); }
+.obj-num.future { background: var(--gray); }
+
+.obj-body { flex: 1; }
+.obj-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.obj-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+.obj-badge {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.badge-done { background: var(--teal-light); color: var(--teal); }
+.badge-future { background: var(--gray-light); color: var(--gray); }
+
+/* ── METHODOLOGY ── */
+.method-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+
+.mpill {
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 400;
+  border: 1px solid;
+}
+
+.mp-blue { background: var(--blue-light); color: #0C447C; border-color: rgba(24,95,165,0.2); }
+.mp-teal { background: var(--teal-light); color: var(--teal); border-color: rgba(15,110,86,0.2); }
+.mp-navy { background: #E6EEF5; color: var(--navy); border-color: rgba(4,44,83,0.15); }
+
+.method-note {
+  margin-top: 1.5rem;
+  background: var(--white);
+  border-left: 3px solid var(--teal-mid);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.25rem;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+section:nth-child(even) .method-note { background: #f8f7f4; }
+
+/* ── RESULTS ── */
+.result-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 1.5rem; }
+
+.rcard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+section:nth-child(even) .rcard { background: #f8f7f4; }
+
+.rcard-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.rcard-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.ri-blue { background: var(--blue-light); color: var(--blue); }
+.ri-teal { background: var(--teal-light); color: var(--teal); }
+.ri-navy { background: #E6EEF5; color: var(--navy); }
+
+.rcard-title { font-size: 14px; font-weight: 500; color: var(--text); }
+
+.rcard-body { padding: 1rem 1.25rem; font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+.highlight-val {
+  display: inline-block;
+  background: var(--teal-light);
+  color: var(--teal);
+  border-radius: 5px;
+  padding: 1px 8px;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* bar chart */
+.bar-chart { margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-label { font-size: 12px; color: var(--text-muted); width: 160px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 10px; background: #eeecea; border-radius: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 5px; }
+.bar-val { font-size: 12px; font-weight: 500; color: var(--text); min-width: 55px; text-align: right; }
+
+/* ── FUTURE ── */
+.future-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.future-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.2s;
+}
+
+section:nth-child(even) .future-card { background: #f8f7f4; }
+.future-card:hover { border-color: rgba(15,110,86,0.35); }
+
+.future-card-icon { font-size: 20px; color: var(--teal-mid); margin-bottom: 8px; }
+.future-card-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+/* ── INTEGRITY ── */
+.integrity-table { margin-top: 1.5rem; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.int-row { display: flex; padding: 12px 1.25rem; border-bottom: 1px solid var(--border); align-items: center; }
+.int-row:last-child { border-bottom: none; }
+.int-label { font-size: 14px; color: var(--text-muted); flex: 1; }
+.int-val { font-size: 14px; font-weight: 500; color: var(--teal); }
+.int-val.neutral { color: var(--text-muted); }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 1.5rem; }
+.about-block { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; }
+section:nth-child(even) .about-block { background: #f8f7f4; }
+.ab-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.ab-val { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+/* ── HAMBURGER (mobile) ── */
+#hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem; left: 1rem;
+  z-index: 200;
+  background: var(--navy);
+  border: none;
+  color: white;
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar { transform: translateX(-240px); width: 240px; }
+  #sidebar.open { transform: translateX(0); }
+  main { margin-left: 0; }
+  #hamburger { display: flex; }
+  #hero { padding: 3rem 1.5rem 2rem; }
+  .hero-title { font-size: 24px; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  section { padding: 2rem 1.5rem; }
+  .overview-grid, .about-grid { grid-template-columns: 1fr; }
+  .future-grid { grid-template-columns: 1fr 1fr; }
+  #hero::before { display: none; }
+}
+
+@media (max-width: 600px) {
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .future-grid { grid-template-columns: 1fr; }
+  .bar-label { width: 110px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<button id="hamburger" onclick="toggleSidebar()" aria-label="Open navigation">☰</button>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-tag">M.Tech Thesis · 2026</div>
+    <div class="sidebar-brand-name">Aravind Krishna M</div>
+    <div class="sidebar-brand-sub">DY Patil Biotechnology Institute, Pune<br>Research at RGCB, Thiruvananthapuram</div>
+  </div>
+
+  <nav>
+    <div class="nav-section-label">Contents</div>
+    <a class="nav-link active" onclick="scrollTo('hero')" href="#hero">
+      <span class="nav-icon">⬡</span> Overview
+    </a>
+    <a class="nav-link" onclick="scrollTo('objectives')" href="#objectives">
+      <span class="nav-icon">◎</span> Objectives
+    </a>
+    <a class="nav-link" onclick="scrollTo('methodology')" href="#methodology">
+      <span class="nav-icon">⬡</span> Methodology
+    </a>
+
+    <div class="nav-section-label" style="margin-top:0.5rem">Results</div>
+    <a class="nav-link" onclick="scrollTo('results')" href="#results">
+      <span class="nav-icon">◈</span> Key findings
+    </a>
+    <a class="nav-link" onclick="scrollTo('facs')" href="#facs">
+      <span class="nav-icon">◌</span> FACS &amp; transduction
+    </a>
+    <a class="nav-link" onclick="scrollTo('qpcr')" href="#qpcr">
+      <span class="nav-icon">◌</span> RT-qPCR expression
+    </a>
+    <a class="nav-link" onclick="scrollTo('mmcC')" href="#mmcC">
+      <span class="nav-icon">◌</span> Mitomycin C arrest
+    </a>
+
+    <div class="nav-section-label" style="margin-top:0.5rem">More</div>
+    <a class="nav-link" onclick="scrollTo('future')" href="#future">
+      <span class="nav-icon">→</span> Future directions
+    </a>
+    <a class="nav-link" onclick="scrollTo('integrity')" href="#integrity">
+      <span class="nav-icon">✓</span> Integrity report
+    </a>
+    <a class="nav-link" onclick="scrollTo('about')" href="#about">
+      <span class="nav-icon">◉</span> About
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    Guide: Dr. Sunil Martin<br>
+    Scientist E-II, RGCB
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-tag">M.Tech (Integrated) Biotechnology · Final Thesis</div>
+    <h1 class="hero-title">Engineering Membrane-Bound IL-7 Expressing K562 Feeder Cells for Enhanced T Cell Expansion</h1>
+    <p class="hero-subtitle">A novel feeder cell platform for cost-effective, scalable ex vivo T cell manufacturing in adoptive immunotherapy</p>
+    <div class="hero-chips">
+      <span class="chip">CAR-T Cell Therapy</span>
+      <span class="chip">Adoptive Immunotherapy</span>
+      <span class="chip">K562 Feeder Cells</span>
+      <span class="chip">Membrane-Bound Cytokines</span>
+      <span class="chip">Lentiviral Transduction</span>
+      <span class="chip">Cancer Immunotherapy</span>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">98.23%</div>
+      <div class="stat-desc">GFP purity after FACS sorting</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4.1×</div>
+      <div class="stat-desc">MbIL-7 mRNA fold increase (RT-qPCR)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0%</div>
+      <div class="stat-desc">Turnitin plagiarism similarity</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">46</div>
+      <div class="stat-desc">Peer-reviewed references cited</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-eyebrow">Introduction</div>
+    <h2 class="section-heading">The problem this thesis solves</h2>
+    <p class="body-text">CAR-T cell therapy has revolutionised treatment of haematological malignancies, but a critical manufacturing bottleneck remains — generating sufficient numbers of <strong>functional, non-exhausted T cells</strong> outside the human body. Traditional protocols rely on soluble IL-2, which drives terminal differentiation and exhaustion, and requires expensive repeated supplementation. This thesis proposes anchoring IL-7 directly onto K562 feeder cell surfaces to create a reusable, physiologically relevant expansion platform.</p>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="ov-label">The challenge</div>
+        <div class="ov-text">Soluble cytokine protocols (IL-2) cause T cell exhaustion and terminal differentiation, reducing therapeutic efficacy. Manufacturing costs remain a major barrier to clinical accessibility.</div>
+      </div>
+      <div class="overview-card">
+        <div class="ov-label">The solution</div>
+        <div class="ov-text">Membrane-anchored IL-7 on K562 feeder cells provides sustained, localised cytokine signalling without repeated soluble supplementation — mimicking natural immune microenvironment cues.</div>
+      </div>
+      <div class="overview-card">
+        <div class="ov-label">Research site</div>
+        <div class="ov-text">Synthetic Immunology Laboratory, Division of Cancer Research, Rajiv Gandhi Centre for Biotechnology (RGCB), Thiruvananthapuram — under Dr. Sunil Martin, Scientist E-II.</div>
+      </div>
+      <div class="overview-card">
+        <div class="ov-label">Significance</div>
+        <div class="ov-text">This platform is modular, scalable, and cost-effective — with direct applicability to CAR-T manufacturing pipelines, G-Rex bioreactor systems, and NK / γδ T cell expansion.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIVES -->
+  <section id="objectives">
+    <div class="section-eyebrow">Aims &amp; Objectives</div>
+    <h2 class="section-heading">What this study set out to achieve</h2>
+    <p class="body-text">The central aim was to generate a K562 feeder cell line expressing membrane-bound IL-7 (mbIL-7), growth-arrest it with Mitomycin C, and establish an efficient T cell expansion platform.</p>
+    <div class="obj-list">
+      <div class="obj-item">
+        <div class="obj-num done">01</div>
+        <div class="obj-body">
+          <div class="obj-title">Cloning of membrane-bound IL-7 construct</div>
+          <div class="obj-desc">Replace IL-15 insert in the EHT backbone vector with the IL-7 coding sequence using XbaI / NheI restriction sites, retaining CD28 hinge and transmembrane domains.</div>
+        </div>
+        <span class="obj-badge badge-done">Completed</span>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num done">02</div>
+        <div class="obj-body">
+          <div class="obj-title">Generation of stable MbIL-7 K562 cell line</div>
+          <div class="obj-desc">Package the construct into 3rd-generation pseudolentiviral particles via HEK293T, transduce K562 cells, and enrich by FACS sorting on GFP co-expression.</div>
+        </div>
+        <span class="obj-badge badge-done">Completed</span>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num done">03</div>
+        <div class="obj-body">
+          <div class="obj-title">Optimisation of K562 growth inhibition by Mitomycin C</div>
+          <div class="obj-desc">Test 1, 5, and 10 µg/mL concentrations over 8 days to identify the dose that achieves proliferation arrest while preserving feeder cell viability for co-culture.</div>
+        </div>
+        <span class="obj-badge badge-done">Completed</span>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num future">04</div>
+        <div class="obj-body">
+          <div class="obj-title">Functional testing of engineered K562 for T cell expansion</div>
+          <div class="obj-desc">Co-culture optimised MbIL-7-K562 feeders with primary T cells; assess fold expansion, phenotype, cytokine production (IL-2, IFN-γ), and cytotoxicity. CAR-T cell support is the future application.</div>
+        </div>
+        <span class="obj-badge badge-future">Upcoming</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section id="methodology">
+    <div class="section-eyebrow">Materials &amp; Methods</div>
+    <h2 class="section-heading">Experimental workflow</h2>
+    <p class="body-text">The study followed a sequential workflow from gene cloning to cell line generation and functional characterisation.</p>
+    <div class="method-pills">
+      <span class="mpill mp-blue">RNA isolation (PBMC)</span>
+      <span class="mpill mp-blue">cDNA synthesis</span>
+      <span class="mpill mp-blue">Gradient PCR optimisation</span>
+      <span class="mpill mp-blue">IL-7 large-scale amplification</span>
+      <span class="mpill mp-teal">XbaI / NheI restriction digestion</span>
+      <span class="mpill mp-teal">IL-7 MB plasmid construction</span>
+      <span class="mpill mp-teal">DH5α transformation &amp; colony PCR</span>
+      <span class="mpill mp-teal">Midi-prep plasmid isolation</span>
+      <span class="mpill mp-teal">HindIII digestion validation</span>
+      <span class="mpill mp-navy">3rd-gen lentiviral packaging (HEK293T)</span>
+      <span class="mpill mp-navy">Viral titration by GFP expression</span>
+      <span class="mpill mp-navy">K562 transduction (MOI optimised)</span>
+      <span class="mpill mp-navy">FACS sorting — BD FACSAria III</span>
+      <span class="mpill mp-navy">Cryopreservation of stable line</span>
+      <span class="mpill mp-blue">RT-qPCR (ΔΔCt, β-actin reference)</span>
+      <span class="mpill mp-blue">Mitomycin C proliferation assay</span>
+      <span class="mpill mp-blue">Trypan blue viability tracking × 8 days</span>
+    </div>
+    <div class="method-note">
+      <strong>Key construct design:</strong> MbIL-7 was built by replacing the IL-15 insert in an existing MbIL-15 plasmid with the IL-7 coding sequence, while retaining the CD28 hinge region and CD28 transmembrane domain — ensuring stable surface expression and localised IL-7 delivery without secretion into the bulk culture medium.
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="section-eyebrow">Results</div>
+    <h2 class="section-heading">Key findings</h2>
+    <p class="body-text">All three completed objectives were achieved with high confidence. Below are the main results from each experimental phase.</p>
+
+    <!-- FACS -->
+    <div id="facs" style="padding-top:1.5rem">
+      <div class="result-cards">
+        <div class="rcard">
+          <div class="rcard-head">
+            <div class="rcard-icon ri-blue">🧬</div>
+            <div class="rcard-title">IL-7 amplification &amp; plasmid validation</div>
+          </div>
+          <div class="rcard-body">
+            Gradient PCR optimised annealing at <span class="highlight-val">50°C</span> — yielding a single, distinct IL-7 band confirming primer specificity. The recombinant plasmid was validated by three independent methods: (1) XbaI/NheI insert release at expected size, (2) HindIII digestion matching in silico predictions from SnapGene, and (3) IL-7 primer PCR amplicon of the anticipated size. All three approaches collectively confirmed successful cloning.
+          </div>
+        </div>
+
+        <div class="rcard">
+          <div class="rcard-head">
+            <div class="rcard-icon ri-teal">🔬</div>
+            <div class="rcard-title">FACS enrichment of transduced K562 cells</div>
+          </div>
+          <div class="rcard-body">
+            Lentiviral transduction achieved approximately 24% initial GFP expression. After FACS sorting (BD FACSAria III, sterile conditions), purity increased to <span class="highlight-val">98.23% GFP-positive</span>. Cells were gated by forward/side scatter to exclude debris and dead cells. The sorted population was expanded and cryopreserved for downstream functional assays.
+            <div class="bar-chart">
+              <div class="bar-row">
+                <div class="bar-label">Untransduced K562</div>
+                <div class="bar-track"><div class="bar-fill" style="width:2%;background:#B5D4F4"></div></div>
+                <div class="bar-val">~2%</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">Post-transduction</div>
+                <div class="bar-track"><div class="bar-fill" style="width:24.25%;background:#378ADD"></div></div>
+                <div class="bar-val">24.25%</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">Post-FACS sort</div>
+                <div class="bar-track"><div class="bar-fill" style="width:98.23%;background:#0F6E56"></div></div>
+                <div class="bar-val">98.23%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RT-QPCR -->
+    <div id="qpcr" style="padding-top:1rem">
+      <div class="result-cards">
+        <div class="rcard">
+          <div class="rcard-head">
+            <div class="rcard-icon ri-navy">📊</div>
+            <div class="rcard-title">RT-qPCR confirms stable MbIL-7 mRNA expression</div>
+          </div>
+          <div class="rcard-body">
+            Using the ΔΔCt method normalised to β-actin (housekeeping gene), MbIL-7 mRNA in transduced K562 cells showed a mean fold change of <span class="highlight-val">4.104 ± 0.778</span> relative to untransduced controls. This result was statistically significant and stable across multiple cell passages — validating stable transgene integration and confirming the engineered K562 line as a reliable, durable feeder system.
+            <div class="bar-chart" style="margin-top:1rem">
+              <div class="bar-row">
+                <div class="bar-label">K562 (untransduced)</div>
+                <div class="bar-track"><div class="bar-fill" style="width:20%;background:#FAC775"></div></div>
+                <div class="bar-val">1.0× (ref)</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">K562-MbIL7 (transduced)</div>
+                <div class="bar-track"><div class="bar-fill" style="width:82%;background:#0F6E56"></div></div>
+                <div class="bar-val">4.104×</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MITOMYCIN C -->
+    <div id="mmcC" style="padding-top:1rem">
+      <div class="result-cards">
+        <div class="rcard">
+          <div class="rcard-head">
+            <div class="rcard-icon ri-blue">🛡️</div>
+            <div class="rcard-title">Mitomycin C proliferation arrest optimisation</div>
+          </div>
+          <div class="rcard-body">
+            Three concentrations tested over 8 days against untreated controls. Both <span class="highlight-val">5 µg/mL</span> and <span class="highlight-val">10 µg/mL</span> achieved highly significant proliferation suppression (p &lt; 0.0001). Cell viability was largely maintained at 5 µg/mL through Day 6; at 10 µg/mL a significant viability reduction occurred by Day 8 (p &lt; 0.001). The 5–10 µg/mL range was identified as optimal.
+            <div class="bar-chart" style="margin-top:1rem">
+              <div class="bar-row">
+                <div class="bar-label">Untreated (control)</div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%;background:#E24B4A"></div></div>
+                <div class="bar-val">Proliferating</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">1 µg/mL</div>
+                <div class="bar-track"><div class="bar-fill" style="width:80%;background:#FAC775"></div></div>
+                <div class="bar-val">Insufficient</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">5 µg/mL ✓ optimal</div>
+                <div class="bar-track"><div class="bar-fill" style="width:12%;background:#0F6E56"></div></div>
+                <div class="bar-val">Arrested</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label">10 µg/mL ✓ effective</div>
+                <div class="bar-track"><div class="bar-fill" style="width:8%;background:#085041"></div></div>
+                <div class="bar-val">Arrested</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURE -->
+  <section id="future">
+    <div class="section-eyebrow">Discussion &amp; Future Work</div>
+    <h2 class="section-heading">Where this research goes next</h2>
+    <p class="body-text">The study successfully established a stable, high-purity MbIL-7 K562 feeder line. Functional validation of T cell expansion capacity is the critical next step, with broader translational applications in CAR-T manufacturing.</p>
+    <div class="future-grid">
+      <div class="future-card">
+        <div class="future-card-icon">⚗️</div>
+        <div class="future-card-text">Optimise T cell : feeder cell ratio for co-culture expansion protocol</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">📈</div>
+        <div class="future-card-text">Measure T cell fold expansion vs standard IL-7/IL-15 soluble protocol</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">🔬</div>
+        <div class="future-card-text">Phenotypic profiling of memory vs effector subsets after co-culture</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">💉</div>
+        <div class="future-card-text">Cytotoxicity assays and IL-2 / IFN-γ cytokine secretion measurements</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">🧫</div>
+        <div class="future-card-text">CAR-T cell manufacturing support — adapt platform for clinical pipelines</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">🏭</div>
+        <div class="future-card-text">G-Rex bioreactor integration for large-scale closed-system expansion</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">🩸</div>
+        <div class="future-card-text">Extension to NK cells and γδ T cells as additional effector populations</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">🔗</div>
+        <div class="future-card-text">Multipotent aAPC engineering — combine MbIL-7 with additional co-stimulatory ligands</div>
+      </div>
+      <div class="future-card">
+        <div class="future-card-icon">📋</div>
+        <div class="future-card-text">IND-enabling studies toward clinical-grade feeder cell manufacturing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRITY -->
+  <section id="integrity">
+    <div class="section-eyebrow">Submission Integrity</div>
+    <h2 class="section-heading">Plagiarism &amp; AI detection report</h2>
+    <p class="body-text">Submitted to Dr. D.Y. Patil Vidyapeeth Pune (CN-193018) via Turnitin on 26 May 2026.</p>
+    <div class="integrity-table">
+      <div class="int-row" style="background:#f8f7f4">
+        <div class="int-label">Overall similarity score</div>
+        <div class="int-val">0% — No matches detected</div>
+      </div>
+      <div class="int-row">
+        <div class="int-label">Internet sources</div>
+        <div class="int-val">0%</div>
+      </div>
+      <div class="int-row" style="background:#f8f7f4">
+        <div class="int-label">Publications database</div>
+        <div class="int-val">0%</div>
+      </div>
+      <div class="int-row">
+        <div class="int-label">Submitted student works</div>
+        <div class="int-val">0%</div>
+      </div>
+      <div class="int-row" style="background:#f8f7f4">
+        <div class="int-label">AI detection result</div>
+        <div class="int-val neutral">Below 20% threshold (likely human-written)</div>
+      </div>
+      <div class="int-row">
+        <div class="int-label">Integrity flag</div>
+        <div class="int-val neutral">Hidden text on 2 pages (review recommended)</div>
+      </div>
+      <div class="int-row" style="background:#f8f7f4">
+        <div class="int-label">Document length</div>
+        <div class="int-val neutral">51 pages · 9,636 words · 57,152 characters</div>
+      </div>
+      <div class="int-row">
+        <div class="int-label">References cited</div>
+        <div class="int-val">46 peer-reviewed sources</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-eyebrow">About</div>
+    <h2 class="section-heading">Student &amp; institution details</h2>
+    <div class="about-grid">
+      <div class="about-block">
+        <div class="ab-label">Student</div>
+        <div class="ab-val">Aravind Krishna M<br>M.Tech (Integrated) Biotechnology</div>
+      </div>
+      <div class="about-block">
+        <div class="ab-label">Home institution</div>
+        <div class="ab-val">Dr. D.Y. Patil Biotechnology &amp; Bioinformatics Institute, Pune<br>Director: Dr. Neelu N. Nawani</div>
+      </div>
+      <div class="about-block">
+        <div class="ab-label">Research conducted at</div>
+        <div class="ab-val">Synthetic Immunology Laboratory<br>Division of Cancer Research<br>Rajiv Gandhi Centre for Biotechnology (RGCB), Thiruvananthapuram</div>
+      </div>
+      <div class="about-block">
+        <div class="ab-label">Guide &amp; supervisor</div>
+        <div class="ab-val">Dr. Sunil Martin<br>Scientist E-II, RGCB<br>+ Mr. Muhammed Shafi &amp; lab members</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el){ el.scrollIntoView({behavior:'smooth'}); }
+  if(window.innerWidth < 900){ document.getElementById('sidebar').classList.remove('open'); }
+}
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Active nav link on scroll
+const sections = ['hero','objectives','methodology','results','facs','qpcr','mmcC','future','integrity','about'];
+const links = document.querySelectorAll('.nav-link');
+
+function updateActive(){
+  let current = 'hero';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120){ current = id; }
+  });
+  links.forEach(l => {
+    const href = l.getAttribute('href');
+    l.classList.toggle('active', href === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateActive, {passive:true});
+updateActive();
+</script>
+</body>
+</html>
